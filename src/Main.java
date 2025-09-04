@@ -26,6 +26,6 @@ public class Main {
         System.out.println(bigTask);
         subtask2.setStatus(Status.DONE);
         taskManager.updateSubtask(subtask2);
-        System.out.println(bigTask);
+        System.out.println(bigTask) ;
     }
 }

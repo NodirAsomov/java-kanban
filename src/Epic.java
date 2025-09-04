@@ -37,5 +37,5 @@ public class Epic extends Task {
                 ", subtaskList.size = " + subtaskList.size() +
                 ", status = " + getStatus() +
                 '}';
-    }
+     }
 }

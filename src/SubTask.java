@@ -15,7 +15,7 @@ public class SubTask extends Task {
 
     public int getEpicID() {
         return epicID;
-    }
+     }
 
     @Override
     public String toString() {
