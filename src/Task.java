@@ -15,11 +15,14 @@ public class Task {
         this.status = status;
     }
 
-    public Task(String name, String description) {
+    public Task(String name, String description, Status status) {
         this.name = name;
         this.description = description;
         this.status = Status.NEW;
     }
+
+
+
 
     public String getName() {
         return name;
@@ -85,5 +88,6 @@ public class Task {
                 '}';
     }
 }
+
 
 
