@@ -44,7 +44,7 @@ public class TaskManager {
     public Task updateTask(Task task) {
         Integer taskID = task.getId();
         if (!tasks.containsKey(taskID)) {
-            return null;
+            throw new IllegalArgumentException("Task с id " + taskID + " не существует");
         }
         tasks.replace(taskID, task);
         return task;
