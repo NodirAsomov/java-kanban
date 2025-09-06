@@ -1,4 +1,3 @@
-
 public class SubTask extends Task {
 
     private final int epicID;
@@ -15,7 +14,7 @@ public class SubTask extends Task {
 
     public int getEpicID() {
         return epicID;
-     }
+    }
 
     @Override
     public String toString() {
@@ -28,3 +27,5 @@ public class SubTask extends Task {
                 '}';
     }
 }
+
+

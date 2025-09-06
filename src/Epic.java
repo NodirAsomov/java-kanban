@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 
-public class Epic extends Task {
+public  class Epic extends  Task{
 
     private ArrayList<SubTask> subtaskList = new ArrayList<>();
 
     public Epic(String name, String description) {
         super(name, description);
+        this.status = Status.NEW;
     }
-
-    public Epic(int id, String name, String description, Status status) {
-        super(id, name, description, status);
+    public Epic(int id, String name, String description) {
+        super(id, name, description, Status.NEW);
     }
 
     public void addSubtask(SubTask subtask) {
@@ -21,11 +21,11 @@ public class Epic extends Task {
     }
 
     public ArrayList<SubTask> getSubtaskList() {
-        return subtaskList;
+        return new ArrayList<>(subtaskList);
     }
 
-    public void setSubtaskList(ArrayList<SubTask> subtaskList) {
-        this.subtaskList = subtaskList;
+    public void removeSubtask(SubTask subtask) {
+        subtaskList.remove(subtask);
     }
 
     @Override
@@ -37,5 +37,5 @@ public class Epic extends Task {
                 ", subtaskList.size = " + subtaskList.size() +
                 ", status = " + getStatus() +
                 '}';
-     }
+    }
 }

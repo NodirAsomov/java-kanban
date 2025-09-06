@@ -1,11 +1,12 @@
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Task {
 
-    private String name;
-    private String description;
-    private int id;
-    private Status status;
+    protected String name;
+    protected String description;
+    protected int id;
+    protected Status status;
 
     public Task(int id, String name, String description, Status status) {
         this.id = id;
@@ -82,7 +83,7 @@ public class Task {
                 ", id='" + id +
                 ", status='" + status +
                 '}';
-     }
+    }
 }
 
 
