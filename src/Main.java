@@ -1,11 +1,18 @@
+import managerapp.InMemoryTaskManager;
+import managerapp.TaskManager;
+import taskapp.Epic;
+import taskapp.Status;
+import taskapp.SubTask;
+import taskapp.Task;
+
 public class Main {
 
     public static void main(String[] args) {
 
 
-        TaskManager taskManager = new TaskManager();
+        TaskManager taskManager = new InMemoryTaskManager();
 
-        Task goShopping = new Task("Покупка в магазине", "купить томаты для соуса",Status.NEW);
+        Task goShopping = new Task("Покупка в магазине", "купить томаты для соуса", Status.NEW);
         Task goShoppingTask = taskManager.addTask(goShopping);
         System.out.println(goShoppingTask);
 

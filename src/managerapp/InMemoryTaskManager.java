@@ -1,7 +1,13 @@
+package managerapp;
+import taskapp.Epic;
+import taskapp.Status;
+import taskapp.SubTask;
+import taskapp.Task;
+
 import java.util.*;
 
 
-public class TaskManager {
+public class InMemoryTaskManager implements TaskManager {
 
     private final Map<Integer, Task> tasks = new HashMap<>();
     private final Map<Integer, Epic> epics = new HashMap<>();
@@ -9,7 +15,7 @@ public class TaskManager {
 
     private int nextID = 1;
 
-    private int getNextID() {
+    public int getNextID() {
         return nextID++;
     }
 
@@ -30,7 +36,7 @@ public class TaskManager {
 
         if (epic == null) {
             throw new IllegalArgumentException(
-                    "Epic с id " + subtask.getEpicID() + " не существует"
+                    "taskapp.Epic с id " + subtask.getEpicID() + " не существует"
             );
         }
 
@@ -44,7 +50,7 @@ public class TaskManager {
     public Task updateTask(Task task) {
         Integer taskID = task.getId();
         if (!tasks.containsKey(taskID)) {
-            throw new IllegalArgumentException("Task с id " + taskID + " не существует");
+            throw new IllegalArgumentException("taskapp.Task с id " + taskID + " не существует");
         }
         tasks.replace(taskID, task);
         return task;
@@ -53,7 +59,7 @@ public class TaskManager {
     public Epic updateEpic(Epic epic) {
         int epicID = epic.getId();
         if (!epics.containsKey(epicID)) {
-            throw new IllegalArgumentException("Epic с id " + epicID + " не существует");
+            throw new IllegalArgumentException("taskapp.Epic с id " + epicID + " не существует");
         }
 
         Epic newEpic = epics.get(epicID);
@@ -67,7 +73,7 @@ public class TaskManager {
     public SubTask updateSubtask(SubTask subtask) {
         int subtaskID = subtask.getId();
         if (!subtasks.containsKey(subtaskID)) {
-            throw new IllegalArgumentException("SubTask с id " + subtaskID + " не существует");
+            throw new IllegalArgumentException("taskapp.SubTask с id " + subtaskID + " не существует");
         }
 
         SubTask oldSubtask = subtasks.get(subtaskID);
@@ -163,7 +169,7 @@ public class TaskManager {
     }
 
 
-    private void updateEpicStatus(Epic epic) {
+    public void updateEpicStatus(Epic epic) {
         ArrayList<SubTask> list = epic.getSubtaskList();
 
         if (list.isEmpty()) {
