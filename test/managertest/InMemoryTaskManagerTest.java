@@ -1,14 +1,17 @@
 package managertest;
 
 import managerapp.Managers;
+
 import managerapp.TaskManager;
 import org.junit.jupiter.api.BeforeEach;
 import taskapp.Status;
 import taskapp.Task;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+
 
 public class InMemoryTaskManagerTest {
     private static TaskManager taskManager;
