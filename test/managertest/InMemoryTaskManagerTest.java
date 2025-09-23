@@ -10,7 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
+import java.util.*;
+
 
 
 public class InMemoryTaskManagerTest {
@@ -26,7 +27,7 @@ public class InMemoryTaskManagerTest {
         final Task savedTask = taskManager.getTaskByID(task.getId());
         assertNotNull(savedTask, "Ошибка! Задача не найдена.");
 
-        final ArrayList<Task> tasks = taskManager.getTasks();
+        final List<Task> tasks = taskManager.getTasks();
         assertNotNull(tasks, "Ошибка! Задачи не возвращаются.");
         assertEquals(1, tasks.size(), "Ошибка! Неверное количество задач.");
         assertEquals(task, tasks.getFirst(), "Ошибка! Задачи не совпадают.");

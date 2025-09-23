@@ -1,74 +1,74 @@
 package managerapp;
 
 import taskapp.Epic;
-
-import taskapp.Status;
 import taskapp.SubTask;
 import taskapp.Task;
 
-import java.util.ArrayList;
+import java.util.*;
 
 
 
 public interface TaskManager {
     // добавить таск
-    abstract int getNextID();
+    //abstract int getNextID();
 
-    abstract Task addTask(Task task);
-
-
-    abstract Epic addEpic(Epic epic);
+     Task addTask(Task task);
 
 
-
-    abstract SubTask addSubtask(SubTask subtask);
+     Epic addEpic(Epic epic);
 
 
 
-
-    abstract Task updateTask(Task task);
-
-
-    abstract Epic updateEpic(Epic epic);
-
-
-
-    abstract SubTask updateSubtask(SubTask subtask);
+     SubTask addSubtask(SubTask subtask);
 
 
 
 
+     Task updateTask(Task task);
 
-    abstract Task getTaskByID(int id);
 
-    abstract Epic getEpicByID(int id);
+     Epic updateEpic(Epic epic);
 
-    abstract SubTask getSubtaskByID(int id);
 
-    abstract ArrayList<Task> getTasks();
 
-    abstract ArrayList<Epic> getEpics();
-
-    abstract ArrayList<SubTask> getSubtasks();
-
-    abstract ArrayList<SubTask> getEpicSubtasks(int epicId);
-
-    abstract void deleteTasks();
-
-    abstract void deleteEpics();
-
-    abstract void deleteSubtasks();
-
-    abstract void deleteTaskByID(int id);
-
-    abstract void deleteEpicByID(int id);
-
-    abstract void deleteSubtaskByID(int id);
+     SubTask updateSubtask(SubTask subtask);
 
 
 
 
-    abstract void updateEpicStatus(Epic epic);
+
+     Task getTaskByID(int id);
+
+     Epic getEpicByID(int id);
+
+     SubTask getSubtaskByID(int id);
+
+     List<Task> getTasks();
+
+     List<Epic> getEpics();
+
+     List<SubTask> getSubtasks();
+
+     List<SubTask> getEpicSubtasks(int epicId);
+
+     void deleteTasks();
+
+     void deleteEpics();
+
+     void deleteSubtasks();
+
+     void deleteTaskByID(int id);
+
+     void deleteEpicByID(int id);
+
+     void deleteSubtaskByID(int id);
+
+     List<Task> getHistory();
+
+
+
+
+    //abstract void updateEpicStatus(Epic epic);
 
 
 

@@ -8,6 +8,7 @@ import taskapp.SubTask;
 
 
 
+
 public class SubTaskTest {
 
 
@@ -16,7 +17,7 @@ public class SubTaskTest {
         Epic epic1 = new Epic("Эпик 1", "first epic view");
         SubTask subtask1 = new SubTask(1, "subtask","view", Status.NEW,epic1.getId());
         SubTask subtask2 = new SubTask(1, "subtask","view", Status.DONE,epic1.getId());
-        assertEquals(subtask1, subtask1,"Ошибка! Наследники класса Task должны быть равны друг другу, если равен их id");
+        assertEquals(subtask1, subtask2,"Ошибка! Наследники класса Task должны быть равны друг другу, если равен их id");
     }
 
 }

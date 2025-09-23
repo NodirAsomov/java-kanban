@@ -2,11 +2,8 @@ package managerapp;
 
 
 
-import taskapp.Epic;
 
-import taskapp.SubTask;
 import taskapp.Task;
-
 import java.util.ArrayList;
 
 
@@ -16,14 +13,17 @@ public class InMemoryHistoryManager implements  HistoryManager{
 
     @Override
     public void add(Task task) {
+        if (task == null) {
+            throw new IllegalArgumentException("Задача не может быть null");
+        } else {
         if (historyList.size() == MAX_HISTORY_STORAGE) {
             historyList.removeFirst();
         }
         historyList.add(task);
-    }
+    }}
 
     @Override
     public ArrayList<Task> getHistory() {
-        return historyList;
+        return new ArrayList<>(historyList);
     }
 }
