@@ -9,8 +9,7 @@ import java.util.*;
 
 
 public interface TaskManager {
-    // добавить таск
-    //abstract int getNextID();
+
 
      Task addTask(Task task);
 
@@ -68,7 +67,7 @@ public interface TaskManager {
 
 
 
-    //abstract void updateEpicStatus(Epic epic);
+
 
 
 

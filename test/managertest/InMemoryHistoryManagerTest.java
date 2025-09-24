@@ -25,12 +25,14 @@ public class InMemoryHistoryManagerTest {
         historyManager = Managers.getDefaultHistory();
     }
 
-   /* @Test
+   @Test
     void addHistoryShouldIgnoreNullTask() {
+
         historyManager.add(null);
         List<Task> history = historyManager.getHistory();
-        assertEquals(1, history.size());
-    }*/
+        assertEquals(0, history.size());
+       System.out.println("история дожна игнорировать null задачи");
+    }
 
     @Test
     void add() {
