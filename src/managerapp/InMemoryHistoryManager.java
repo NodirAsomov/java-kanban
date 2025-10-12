@@ -4,7 +4,7 @@ import taskapp.Task;
 
 import java.util.*;
 
-public class InMemoryHistoryManager implements  HistoryManager{
+public class InMemoryHistoryManager implements HistoryManager {
     private final Map<Integer, Node> requestHistory = new HashMap<>();
     private Node head;
     private Node tail;
@@ -19,6 +19,7 @@ public class InMemoryHistoryManager implements  HistoryManager{
         }
         linkLast(task);
     }
+
     private void linkLast(Task task) {
         Node newNode = new Node(null, task, tail);
         if (tail != null) {

@@ -1,10 +1,11 @@
 package managerapp;
+
 import taskapp.Epic;
 import taskapp.Status;
 import taskapp.SubTask;
 import taskapp.Task;
-import java.util.*;
 
+import java.util.*;
 
 
 public class InMemoryTaskManager implements TaskManager {
@@ -214,6 +215,7 @@ public class InMemoryTaskManager implements TaskManager {
             epic.setStatus(Status.IN_PROGRESS);
         }
     }
+
     @Override
     public List<Task> getHistory() {
         return history.getHistory();

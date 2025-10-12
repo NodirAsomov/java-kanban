@@ -7,69 +7,54 @@ import taskapp.Task;
 import java.util.*;
 
 
-
 public interface TaskManager {
 
 
-     Task addTask(Task task);
+    Task addTask(Task task);
 
 
-     Epic addEpic(Epic epic);
+    Epic addEpic(Epic epic);
 
 
-
-     SubTask addSubtask(SubTask subtask);
-
+    SubTask addSubtask(SubTask subtask);
 
 
-
-     Task updateTask(Task task);
-
-
-     Epic updateEpic(Epic epic);
+    Task updateTask(Task task);
 
 
-
-     SubTask updateSubtask(SubTask subtask);
-
+    Epic updateEpic(Epic epic);
 
 
+    SubTask updateSubtask(SubTask subtask);
 
 
-     Task getTaskByID(int id);
+    Task getTaskByID(int id);
 
-     Epic getEpicByID(int id);
+    Epic getEpicByID(int id);
 
-     SubTask getSubtaskByID(int id);
+    SubTask getSubtaskByID(int id);
 
-     List<Task> getTasks();
+    List<Task> getTasks();
 
-     List<Epic> getEpics();
+    List<Epic> getEpics();
 
-     List<SubTask> getSubtasks();
+    List<SubTask> getSubtasks();
 
-     List<SubTask> getEpicSubtasks(int epicId);
+    List<SubTask> getEpicSubtasks(int epicId);
 
-     void deleteTasks();
+    void deleteTasks();
 
-     void deleteEpics();
+    void deleteEpics();
 
-     void deleteSubtasks();
+    void deleteSubtasks();
 
-     void deleteTaskByID(int id);
+    void deleteTaskByID(int id);
 
-     void deleteEpicByID(int id);
+    void deleteEpicByID(int id);
 
-     void deleteSubtaskByID(int id);
+    void deleteSubtaskByID(int id);
 
-     List<Task> getHistory();
-
-
-
-
-
-
-
+    List<Task> getHistory();
 
 
 }

@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 
 
-
 public class InMemoryTaskManagerTest {
     private static TaskManager taskManager;
 
@@ -21,9 +20,10 @@ public class InMemoryTaskManagerTest {
     public void beforeEach() {
         taskManager = Managers.getDefault();
     }
+
     @Test
     void addTask() {
-        final Task task = taskManager.addTask(new Task("homework","writing", Status.NEW));
+        final Task task = taskManager.addTask(new Task("homework", "writing", Status.NEW));
         final Task savedTask = taskManager.getTaskByID(task.getId());
         assertNotNull(savedTask, "Ошибка! Задача не найдена.");
 
