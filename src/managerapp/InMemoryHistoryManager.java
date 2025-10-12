@@ -67,7 +67,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             return;
         }
 
-        {
+        
 
             Node prev = node.getPrev();
             Node next = node.getNext();
@@ -87,7 +87,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             if (next != null) {
                 next.setPrev(node.getPrev());
             }
-        }
+        
     }
 
     private static class Node {
