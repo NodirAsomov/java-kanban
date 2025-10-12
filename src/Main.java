@@ -10,16 +10,13 @@ public class Main {
     public static void main(String[] args) {
 
         TaskManager taskManager = new InMemoryTaskManager();
-
         Task goShopping = new Task("Покупка в магазине", "купить томаты для соуса", Status.NEW);
         Task goShoppingTask = taskManager.addTask(goShopping);
         System.out.println(goShoppingTask);
-
         Task goShoppingToUpdate = new Task(goShopping.getId(), "надо сегодня сделать покупку", "купить макароны",
                 Status.IN_PROGRESS);
         Task goShoppingToUpdateTask = taskManager.updateTask(goShoppingToUpdate);
         System.out.println(goShoppingToUpdateTask);
-
 
         Epic bigTask = new Epic("купить учебники ", "Нужно сделать до 1 мая ");
         taskManager.addEpic(bigTask);
