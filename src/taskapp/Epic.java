@@ -3,14 +3,14 @@ package taskapp;
 import java.util.ArrayList;
 
 
-public  class Epic extends Task {
+public class Epic extends Task {
 
     private final ArrayList<SubTask> subtaskList = new ArrayList<>();
 
     public Epic(String name, String description) {
         super(name, description, Status.NEW);
     }
-    
+
     public Epic(int id, String name, String description) {
         super(id, name, description, Status.NEW);
     }
