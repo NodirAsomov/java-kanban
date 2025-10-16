@@ -9,6 +9,7 @@ import java.util.*;
 
 public interface TaskManager {
 
+    void remove(int id);
 
     Task addTask(Task task);
 
@@ -55,6 +56,8 @@ public interface TaskManager {
     void deleteSubtaskByID(int id);
 
     List<Task> getHistory();
+
+    void clearHistory();
 
 
 }

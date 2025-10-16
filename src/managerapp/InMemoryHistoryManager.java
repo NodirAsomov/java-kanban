@@ -21,16 +21,9 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     private void linkLast(Task task) {
-        Node newNode = new Node(null, task, tail);
-        if (tail != null) {
-            tail.next = newNode;
-        }
-        tail = newNode;
-        if (head == null) {
-            head = newNode;
-        }
-        requestHistory.put(task.getId(), newNode);
+        requestHistory.put(task.getId(), newNode(task));
     }
+
 
     @Override
     public void remove(int id) {
@@ -66,25 +59,25 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (node == null) {
             return;
         }
-            Node prev = node.getPrev();
-            Node next = node.getNext();
+        Node prev = node.getPrev();
+        Node next = node.getNext();
 
-            if (node == head) {
-                head = next;
-            }
+        if (node == head) {
+            head = next;
+        }
 
-            if (node == tail) {
-                tail = prev;
-            }
+        if (node == tail) {
+            tail = prev;
+        }
 
-            if (prev != null) {
-                prev.setNext(node.getNext());
-            }
+        if (prev != null) {
+            prev.setNext(node.getNext());
+        }
 
-            if (next != null) {
-                next.setPrev(node.getPrev());
-            }
-            }
+        if (next != null) {
+            next.setPrev(node.getPrev());
+        }
+    }
 
     private static class Node {
         public Task task;
@@ -129,5 +122,10 @@ public class InMemoryHistoryManager implements HistoryManager {
         public int hashCode() {
             return Objects.hash(task);
         }
+    }
+
+    @Override
+    public void clearHistory() {
+        requestHistory.clear();
     }
 }

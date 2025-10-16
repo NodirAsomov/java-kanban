@@ -25,6 +25,13 @@ public class InMemoryHistoryManagerTest {
     }
 
     @Test
+    void newHistoryManager() {
+        HistoryManager historyManager = Managers.getDefaultHistory();
+
+        assertNotNull(historyManager, "Менеджер не проинициализирован");
+    }
+
+    @Test
     void addHistoryShouldIgnoreNullTask() {
 
         historyManager.add(null);
