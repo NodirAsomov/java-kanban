@@ -1,9 +1,6 @@
 package taskapp;
 
-
 public class SubTask extends Task {
-
-
 
     private final int epicID;
 

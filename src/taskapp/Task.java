@@ -2,8 +2,6 @@ package taskapp;
 
 import java.util.Objects;
 
-
-
 public class Task {
 
     protected String name;
@@ -23,8 +21,6 @@ public class Task {
         this.description = description;
         this.status = status;
     }
-
-
 
 
     public String getName() {
