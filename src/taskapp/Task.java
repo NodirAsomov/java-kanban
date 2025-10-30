@@ -8,18 +8,22 @@ public class Task {
     protected String description;
     protected int id;
     protected Status status;
+    protected Type type;
+
 
     public Task(int id, String name, String description, Status status) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.status = status;
+        this.type = Type.TASK;
     }
 
     public Task(String name, String description, Status status) {
         this.name = name;
         this.description = description;
         this.status = status;
+        this.type = Type.TASK;
     }
 
 
@@ -33,6 +37,10 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    public Object getType() {
+        return type;
     }
 
     public void setDescription(String description) {
@@ -76,6 +84,7 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", id='" + id +
                 ", status='" + status +
+                ", type=" + type +
                 '}';
     }
 }
