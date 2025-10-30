@@ -1,4 +1,4 @@
 package managerapp;
 
-public class FileBackedTaskManager  {
+public class FileBackedTaskManager {
 }
