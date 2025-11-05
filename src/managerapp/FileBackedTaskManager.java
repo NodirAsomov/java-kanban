@@ -145,13 +145,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 line = buf.readLine();
                 if (line.contains("EPIC")) {
                     Task epic = fromString(line);
-                    manager.addEpic((Epic) epic);
+                    manager.addEntityFromFile((Epic) epic);
                 } else if (line.contains("SUBTASK")) {
                     Task subtask = fromString(line);
-                    manager.addSubtask((SubTask) subtask);
+                    manager.addEntityFromFile((SubTask) subtask);
                 } else {
                     Task task = fromString(line);
-                    manager.addTask(task);
+                    manager.addEntityFromFile(task);
                 }
             }
         } catch (IOException e) {

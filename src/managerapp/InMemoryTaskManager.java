@@ -250,4 +250,18 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
 
+    protected void addEntityFromFile(Task task) {
+        tasks.put(task.getId(), task);
+    }
+
+    protected void addEntityFromFile(Epic epic) {
+        epics.put(epic.getId(), epic);
+    }
+
+    protected void addEntityFromFile(SubTask subtask) {
+        subtasks.put(subtask.getId(), subtask);
+    }
+
+
+
 }
