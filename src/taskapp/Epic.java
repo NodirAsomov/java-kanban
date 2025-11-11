@@ -14,7 +14,7 @@ public class Epic extends Task {
 
     public Epic(int id, String name, String description) {
         super(id, name, description, Status.NEW);
-        this.type = Type.EPIC;
+         this.type = Type.EPIC;
     }
 
     public void addSubtask(SubTask subtask) {

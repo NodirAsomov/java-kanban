@@ -151,7 +151,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                     manager.addEntityFromFile((SubTask) subtask);
                 } else {
                     Task task = fromString(line);
-                    manager.addEntityFromFile(task);
+                     manager.addEntityFromFile(task);
                 }
             }
         } catch (IOException e) {
