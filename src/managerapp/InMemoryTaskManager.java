@@ -18,6 +18,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     protected int nextID = 1;
 
+
     protected void putTaskFromFile(Task task) {
         tasks.put(task.getId(), task);
     }
@@ -33,6 +34,36 @@ public class InMemoryTaskManager implements TaskManager {
     protected void setNextId(int next) {
         this.nextID = next;
     }
+
+    protected void updateNextId() {
+        int maxId = 0;
+
+        for (Task task : tasks.values()) {
+            maxId = Math.max(maxId, task.getId());
+        }
+        for (Epic epic : epics.values()) {
+            maxId = Math.max(maxId, epic.getId());
+        }
+        for (SubTask subtask : subtasks.values()) {
+            maxId = Math.max(maxId, subtask.getId());
+        }
+
+        nextID = maxId + 1;
+    }
+
+    protected void restoreEpicSubtasks() {
+        for (SubTask sub : subtasks.values()) {
+            Epic epic = epics.get(sub.getEpicID());
+            if (epic != null) {
+                epic.addSubtask(sub);
+            }
+        }
+
+        for (Epic epic : epics.values()) {
+            updateEpicStatus(epic);
+        }
+    }
+
 
     private int getNextID() {
         return nextID++;
@@ -265,10 +296,6 @@ public class InMemoryTaskManager implements TaskManager {
     public void clearHistory() {
         history.getHistory().clear();
     }
-
-
-
-
 
 
 }
