@@ -15,7 +15,24 @@ public class InMemoryTaskManager implements TaskManager {
     private final Map<Integer, SubTask> subtasks = new HashMap<>();
 
     private final HistoryManager history = Managers.getDefaultHistory();
-    private int nextID = 1;
+
+    protected int nextID = 1;
+
+    protected void putTaskFromFile(Task task) {
+        tasks.put(task.getId(), task);
+    }
+
+    protected void putEpicFromFile(Epic epic) {
+        epics.put(epic.getId(), epic);
+    }
+
+    protected void putSubtaskFromFile(SubTask subtask) {
+        subtasks.put(subtask.getId(), subtask);
+    }
+
+    protected void setNextId(int next) {
+        this.nextID = next;
+    }
 
     private int getNextID() {
         return nextID++;
@@ -250,17 +267,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
 
-    protected void addEntityFromFile(Task task) {
-         tasks.put(task.getId(), task);
-    }
 
-    protected void addEntityFromFile(Epic epic) {
-         epics.put(epic.getId(), epic);
-    }
-
-    protected void addEntityFromFile(SubTask subtask) {
-         subtasks.put(subtask.getId(), subtask);
-    }
 
 
 
