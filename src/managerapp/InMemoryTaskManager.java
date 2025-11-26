@@ -15,7 +15,55 @@ public class InMemoryTaskManager implements TaskManager {
     private final Map<Integer, SubTask> subtasks = new HashMap<>();
 
     private final HistoryManager history = Managers.getDefaultHistory();
-    private int nextID = 1;
+
+    protected int nextID = 1;
+
+
+    protected void putTaskFromFile(Task task) {
+        tasks.put(task.getId(), task);
+    }
+
+    protected void putEpicFromFile(Epic epic) {
+        epics.put(epic.getId(), epic);
+    }
+
+    protected void putSubtaskFromFile(SubTask subtask) {
+        subtasks.put(subtask.getId(), subtask);
+    }
+
+    protected void setNextId(int next) {
+        this.nextID = next;
+    }
+
+    protected void updateNextId() {
+        int maxId = 0;
+
+        for (Task task : tasks.values()) {
+            maxId = Math.max(maxId, task.getId());
+        }
+        for (Epic epic : epics.values()) {
+            maxId = Math.max(maxId, epic.getId());
+        }
+        for (SubTask subtask : subtasks.values()) {
+            maxId = Math.max(maxId, subtask.getId());
+        }
+
+        nextID = maxId + 1;
+    }
+
+    protected void restoreEpicSubtasks() {
+        for (SubTask sub : subtasks.values()) {
+            Epic epic = epics.get(sub.getEpicID());
+            if (epic != null) {
+                epic.addSubtask(sub);
+            }
+        }
+
+        for (Epic epic : epics.values()) {
+            updateEpicStatus(epic);
+        }
+    }
+
 
     private int getNextID() {
         return nextID++;

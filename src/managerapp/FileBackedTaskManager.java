@@ -5,7 +5,11 @@ import taskapp.Status;
 import taskapp.SubTask;
 import taskapp.Task;
 
+
 import java.io.*;
+
+import static taskapp.Type.*;
+
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
@@ -135,25 +139,41 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         );
     }
 
-    // Метод загрузки из файла
+
     public static FileBackedTaskManager loadFromFile(File file) {
         FileBackedTaskManager manager = new FileBackedTaskManager(file);
-        try (BufferedReader buf = new BufferedReader(new FileReader(file))) {
-            //пропустим заголовок
-            String line = buf.readLine();
-            while (buf.ready()) {
-                line = buf.readLine();
-                if (line.contains("EPIC")) {
-                    Task epic = fromString(line);
-                    manager.addEpic((Epic) epic);
-                } else if (line.contains("SUBTASK")) {
-                    Task subtask = fromString(line);
-                    manager.addSubtask((SubTask) subtask);
-                } else {
-                    Task task = fromString(line);
-                    manager.addTask(task);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+
+
+            String line = reader.readLine();
+
+            while ((line = reader.readLine()) != null) {
+                if (line.isBlank()) continue;
+
+                Task task = fromString(line);
+
+                switch (task.getType()) {
+                    case TASK:
+                        manager.putTaskFromFile(task);
+                        break;
+
+                    case EPIC:
+                        manager.putEpicFromFile((Epic) task);
+                        break;
+
+                    case SUBTASK:
+                        manager.putSubtaskFromFile((SubTask) task);
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                                "Неизвестный тип задачи: " + task.getType()
+                        );
                 }
             }
+            manager.restoreEpicSubtasks();
+            manager.updateNextId();
+
         } catch (IOException e) {
             throw new ManagerSaveException("Ошибка загрузки задачи из файла", e);
         }
@@ -162,6 +182,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private static Task fromString(String value) {
         String[] parts = value.split(",");
+        if (parts.length < 5) {
+            throw new IllegalArgumentException("Некорректная строка задачи: " + value);
+        }
+
         int id = Integer.parseInt(parts[0]);
         String type = parts[1];
         String name = parts[2];
@@ -177,7 +201,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             case "SUBTASK":
                 return new SubTask(id, name, description, status, epicId);
             default:
-                throw new IllegalArgumentException("Неизвестный типа задачи: " + type);
+                throw new IllegalArgumentException("Неизвестный тип задачи: " + type);
         }
     }
+
 }
