@@ -4,17 +4,17 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import managerapp.TaskManager;
-import taskapp.Task;
+import taskapp.Epic;
 
 import java.io.IOException;
 import java.util.List;
 
-public class TasksHandler extends BaseHttpHandler implements HttpHandler {
+public class EpicsHandler extends BaseHttpHandler implements HttpHandler {
 
     private final TaskManager manager;
     private final Gson gson;
 
-    public TasksHandler(TaskManager manager) {
+    public EpicsHandler(TaskManager manager) {
         this.manager = manager;
         this.gson = HttpTaskServer.getGson();
     }
@@ -29,9 +29,8 @@ public class TasksHandler extends BaseHttpHandler implements HttpHandler {
                 case "GET" -> handleGet(exchange, query);
                 case "POST" -> handlePost(exchange);
                 case "DELETE" -> handleDelete(exchange, query);
-                default -> sendServerError(exchange);
+                default -> sendNotFound(exchange);
             }
-
         } catch (Exception e) {
             sendServerError(exchange);
         }
@@ -39,13 +38,13 @@ public class TasksHandler extends BaseHttpHandler implements HttpHandler {
 
     private void handleGet(HttpExchange exchange, String query) throws IOException {
         if (query == null) {
-            List<Task> tasks = manager.getTasks();
-            sendOK(exchange, gson.toJson(tasks));
+            List<Epic> epics = manager.getEpics();
+            sendOK(exchange, gson.toJson(epics));
         } else if (query.startsWith("id=")) {
             int id = Integer.parseInt(query.substring(3));
-            Task task = manager.getTaskByID(id);
-            if (task != null) {
-                sendOK(exchange, gson.toJson(task));
+            Epic epic = manager.getEpicByID(id);
+            if (epic != null) {
+                sendOK(exchange, gson.toJson(epic));
             } else {
                 sendNotFound(exchange);
             }
@@ -56,16 +55,16 @@ public class TasksHandler extends BaseHttpHandler implements HttpHandler {
 
     private void handlePost(HttpExchange exchange) throws IOException {
         String body = new String(exchange.getRequestBody().readAllBytes());
-        Task task = gson.fromJson(body, Task.class);
+        Epic epic = gson.fromJson(body, Epic.class);
 
-        if (task.getId() == 0) {
-            Task created = manager.addTask(task);
+        if (epic.getId() == 0) {
+            Epic created = manager.addEpic(epic);
             sendCreated(exchange, gson.toJson(created));
         } else {
             try {
-                Task updated = manager.updateTask(task);
+                Epic updated = manager.updateEpic(epic);
                 sendOK(exchange, gson.toJson(updated));
-            } catch (IllegalArgumentException e) {
+            } catch (Exception e) {
                 sendNotFound(exchange);
             }
         }
@@ -73,16 +72,14 @@ public class TasksHandler extends BaseHttpHandler implements HttpHandler {
 
     private void handleDelete(HttpExchange exchange, String query) throws IOException {
         if (query == null) {
-            manager.deleteTasks();
-            sendOK(exchange, "{\"status\":\"All tasks deleted\"}");
+            manager.deleteEpics();
+            sendOK(exchange, "{\"status\":\"All epics deleted\"}");
         } else if (query.startsWith("id=")) {
             int id = Integer.parseInt(query.substring(3));
-            manager.deleteTaskByID(id);
-            sendOK(exchange, "{\"status\":\"Task deleted\"}");
+            manager.deleteEpicByID(id);
+            sendOK(exchange, "{\"status\":\"Epic deleted\"}");
         } else {
             sendNotFound(exchange);
         }
     }
 }
-
-

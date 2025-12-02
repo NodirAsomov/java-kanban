@@ -4,19 +4,18 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import managerapp.TaskManager;
-import taskapp.Task;
+import taskapp.SubTask;
 
 import java.io.IOException;
 import java.util.List;
 
-public class TasksHandler extends BaseHttpHandler implements HttpHandler {
+public class SubtasksHandler extends BaseHttpHandler implements HttpHandler {
 
     private final TaskManager manager;
-    private final Gson gson;
+    private final Gson gson = new Gson();
 
-    public TasksHandler(TaskManager manager) {
+    public SubtasksHandler(TaskManager manager) {
         this.manager = manager;
-        this.gson = HttpTaskServer.getGson();
     }
 
     @Override
@@ -29,9 +28,8 @@ public class TasksHandler extends BaseHttpHandler implements HttpHandler {
                 case "GET" -> handleGet(exchange, query);
                 case "POST" -> handlePost(exchange);
                 case "DELETE" -> handleDelete(exchange, query);
-                default -> sendServerError(exchange);
+                default -> sendNotFound(exchange);
             }
-
         } catch (Exception e) {
             sendServerError(exchange);
         }
@@ -39,13 +37,13 @@ public class TasksHandler extends BaseHttpHandler implements HttpHandler {
 
     private void handleGet(HttpExchange exchange, String query) throws IOException {
         if (query == null) {
-            List<Task> tasks = manager.getTasks();
-            sendOK(exchange, gson.toJson(tasks));
+            List<SubTask> subtasks = manager.getSubtasks();
+            sendOK(exchange, gson.toJson(subtasks));
         } else if (query.startsWith("id=")) {
             int id = Integer.parseInt(query.substring(3));
-            Task task = manager.getTaskByID(id);
-            if (task != null) {
-                sendOK(exchange, gson.toJson(task));
+            SubTask subtask = manager.getSubtaskByID(id);
+            if (subtask != null) {
+                sendOK(exchange, gson.toJson(subtask));
             } else {
                 sendNotFound(exchange);
             }
@@ -56,16 +54,16 @@ public class TasksHandler extends BaseHttpHandler implements HttpHandler {
 
     private void handlePost(HttpExchange exchange) throws IOException {
         String body = new String(exchange.getRequestBody().readAllBytes());
-        Task task = gson.fromJson(body, Task.class);
+        SubTask subtask = gson.fromJson(body, SubTask.class);
 
-        if (task.getId() == 0) {
-            Task created = manager.addTask(task);
+        if (subtask.getId() == 0) {
+            SubTask created = manager.addSubtask(subtask);
             sendCreated(exchange, gson.toJson(created));
         } else {
             try {
-                Task updated = manager.updateTask(task);
+                SubTask updated = manager.updateSubtask(subtask);
                 sendOK(exchange, gson.toJson(updated));
-            } catch (IllegalArgumentException e) {
+            } catch (Exception e) {
                 sendNotFound(exchange);
             }
         }
@@ -73,16 +71,15 @@ public class TasksHandler extends BaseHttpHandler implements HttpHandler {
 
     private void handleDelete(HttpExchange exchange, String query) throws IOException {
         if (query == null) {
-            manager.deleteTasks();
-            sendOK(exchange, "{\"status\":\"All tasks deleted\"}");
+            manager.deleteSubtasks();
+            sendOK(exchange, "{\"status\":\"All subtasks deleted\"}");
         } else if (query.startsWith("id=")) {
             int id = Integer.parseInt(query.substring(3));
-            manager.deleteTaskByID(id);
-            sendOK(exchange, "{\"status\":\"Task deleted\"}");
+            manager.deleteSubtaskByID(id);
+            sendOK(exchange, "{\"status\":\"Subtask deleted\"}");
         } else {
             sendNotFound(exchange);
         }
     }
 }
-
 

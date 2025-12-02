@@ -1,36 +1,31 @@
 package taskapp;
 
+
 public class SubTask extends Task {
 
-    private final int epicID;
+    private int epicID;
 
     public SubTask(String name, String description, Status status, int epicID) {
         super(name, description, status);
         this.epicID = epicID;
-         this.type = Type.SUBTASK;
     }
 
     public SubTask(int id, String name, String description, Status status, int epicID) {
         super(id, name, description, status);
         this.epicID = epicID;
-        this.type = Type.SUBTASK;
     }
 
     public int getEpicID() {
         return epicID;
     }
 
+    public void setEpicID(int epicID) {
+        this.epicID = epicID;
+    }
+
     @Override
     public String toString() {
-        return "taskapp.SubTask{" +
-                "name='" + getName() + '\'' +
-                ", description='" + getDescription() + '\'' +
-                ", id='" + getId() +
-                ", epicID='" + epicID +
-                ", status='" + getStatus() +
-                '}';
+        return super.toString() + " [EpicID: " + epicID + "]";
     }
 }
-
-
 
