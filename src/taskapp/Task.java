@@ -1,5 +1,6 @@
 package taskapp;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -10,6 +11,9 @@ public class Task {
     protected Status status;
     protected Type type;
 
+    protected int duration;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
 
     public Task(int id, String name, String description, Status status) {
         this.id = id;
@@ -39,10 +43,6 @@ public class Task {
         return description;
     }
 
-    public Object getType() {
-        return type;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -63,13 +63,48 @@ public class Task {
         this.status = status;
     }
 
+    public Object getType() {
+        return type;
+    }
+
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+        updateEndTime();
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+        updateEndTime();
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    protected void updateEndTime() {
+        if (startTime != null) {
+            endTime = startTime.plusMinutes(duration);
+        } else {
+            endTime = null;
+        }
+    }
+
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Task task = (Task) object;
         return id == task.id;
-
     }
 
     @Override
@@ -79,12 +114,15 @@ public class Task {
 
     @Override
     public String toString() {
-        return "taskapp.Task{" +
+        return "Task{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", id='" + id +
-                ", status='" + status +
+                ", id=" + id +
+                ", status=" + status +
                 ", type=" + type +
+                ", duration=" + duration +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
                 '}';
     }
 }
